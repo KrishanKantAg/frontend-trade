@@ -1,7 +1,6 @@
 "use client";
 
 import { KanbanBoard } from "@/components/organisms/KanbanBoard";
-import { TabNavigation } from "@/components/organisms/TabNavigation";
 import { TokenModal } from "@/components/organisms/TokenModal";
 import { useTokens } from "@/hooks/useTokens";
 import { useAppSelector } from "@/hooks/useRedux";
@@ -30,25 +29,39 @@ export default function HomePage() {
           <div className="flex items-center justify-between mb-3 sm:mb-4">
             <h1 className="text-lg sm:text-xl font-semibold">Pulse</h1>
             <div className="flex items-center gap-1 sm:gap-2">
-              <Button variant="ghost" size="icon" className="h-8 w-8 sm:h-10 sm:w-10">
+              <Button
+                variant="ghost"
+                size="icon"
+                className="h-8 w-8 sm:h-10 sm:w-10"
+              >
                 <Filter className="w-3 h-3 sm:w-4 sm:h-4" />
               </Button>
-              <Button variant="ghost" size="icon" className="h-8 w-8 sm:h-10 sm:w-10">
+              <Button
+                variant="ghost"
+                size="icon"
+                className="h-8 w-8 sm:h-10 sm:w-10"
+              >
                 <Settings className="w-3 h-3 sm:w-4 sm:h-4" />
               </Button>
             </div>
           </div>
-          <TabNavigation />
         </div>
 
         {/* Main content - Kanban Board */}
         <div className="flex-1 overflow-hidden">
           {error ? (
             <div className="flex items-center justify-center h-64 text-text-secondary">
-              <p>Error loading tokens: {error}</p>
+              <p>
+                Error loading tokens:{" "}
+                {error instanceof Error ? error.message : String(error)}
+              </p>
             </div>
           ) : (
-            <KanbanBoard tokens={allTokens} isLoading={isLoading} onTokenClick={handleTokenClick} />
+            <KanbanBoard
+              tokens={allTokens}
+              isLoading={isLoading}
+              onTokenClick={handleTokenClick}
+            />
           )}
         </div>
 
@@ -62,4 +75,3 @@ export default function HomePage() {
     </ErrorBoundary>
   );
 }
-
