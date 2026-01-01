@@ -1,6 +1,6 @@
 "use client";
 
-import { TokenTable } from "@/components/organisms/TokenTable";
+import { KanbanBoard } from "@/components/organisms/KanbanBoard";
 import { TabNavigation } from "@/components/organisms/TabNavigation";
 import { TokenModal } from "@/components/organisms/TokenModal";
 import { useTokens } from "@/hooks/useTokens";
@@ -13,7 +13,7 @@ import { Token } from "@/types/token";
 
 export default function HomePage() {
   const { isLoading, error } = useTokens();
-  const filteredTokens = useAppSelector((state) => state.tokens.filteredTokens);
+  const allTokens = useAppSelector((state) => state.tokens.tokens);
   const [selectedToken, setSelectedToken] = useState<Token | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -41,14 +41,14 @@ export default function HomePage() {
           <TabNavigation />
         </div>
 
-        {/* Main content */}
-        <div className="flex-1 overflow-y-auto">
+        {/* Main content - Kanban Board */}
+        <div className="flex-1 overflow-hidden">
           {error ? (
             <div className="flex items-center justify-center h-64 text-text-secondary">
               <p>Error loading tokens: {error}</p>
             </div>
           ) : (
-            <TokenTable tokens={filteredTokens} isLoading={isLoading} onTokenClick={handleTokenClick} />
+            <KanbanBoard tokens={allTokens} isLoading={isLoading} onTokenClick={handleTokenClick} />
           )}
         </div>
 
