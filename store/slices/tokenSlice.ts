@@ -48,6 +48,20 @@ const tokenSlice = createSlice({
         filteredToken.previousPrice = action.payload.previousPrice;
       }
     },
+    updateTokenData: (state, action: PayloadAction<{ id: string; data: Partial<Token> }>) => {
+      const updateToken = (t: Token) => {
+        if (t.id === action.payload.id) {
+          Object.assign(t, action.payload.data);
+          // Handle nested updates if necessary, e.g., metrics
+          if (action.payload.data.metrics) {
+            t.metrics = { ...t.metrics, ...action.payload.data.metrics };
+          }
+        }
+      };
+
+      state.tokens.forEach(updateToken);
+      state.filteredTokens.forEach(updateToken);
+    },
     setLoading: (state, action: PayloadAction<boolean>) => {
       state.isLoading = action.payload;
     },
@@ -107,6 +121,7 @@ export const {
   setActiveTab,
   setSort,
   updatePrice,
+  updateTokenData,
   setLoading,
   setError,
   filterTokens,

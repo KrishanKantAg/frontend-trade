@@ -91,12 +91,12 @@
 
 .price-increase {
   @apply text-increase;
-  animation: pricePulse 1s ease-in-out;
+  animation: pricePulse 600ms ease-in-out;
 }
 
 .price-decrease {
   @apply text-decrease;
-  animation: pricePulse 1s ease-in-out;
+  animation: pricePulse 600ms ease-in-out;
 }
 
 @keyframes pricePulse {

@@ -24,6 +24,7 @@ import { useWebSocket } from "@/hooks/useWebSocket";
 import { useAppSelector } from "@/hooks/useRedux";
 import { cn } from "@/lib/utils";
 import { CopyToClipboard } from "react-copy-to-clipboard";
+import { AnimatedValue } from "@/components/atoms/AnimatedValue";
 
 interface TokenCardProps {
   token: Token;
@@ -39,11 +40,8 @@ function TokenCardComponent({ token, onClick }: TokenCardProps) {
   );
 
   // Subscribe to WebSocket updates for this token
-  const tokenIds = useMemo(
-    () => [{ id: currentToken.id, price: currentToken.price }],
-    [currentToken.id, currentToken.price]
-  );
-  useWebSocket(tokenIds);
+  const tokenList = useMemo(() => [currentToken], [currentToken]);
+  useWebSocket(tokenList);
 
   const [copied, setCopied] = useState(false);
 
@@ -125,7 +123,7 @@ function TokenCardComponent({ token, onClick }: TokenCardProps) {
           {/* Row 2: Wrappable Icons */}
           <div className="flex flex-wrap items-center gap-x-3 gap-y-1 text-xs text-text-secondary">
             <div className="flex items-center gap-1 text-primary-green">
-              <span>{currentToken.age}</span>
+              <AnimatedValue value={currentToken.age} />
               <Leaf className="w-3 h-3" />
             </div>
             <Globe className="w-3 h-3" />
@@ -151,7 +149,7 @@ function TokenCardComponent({ token, onClick }: TokenCardProps) {
             {currentToken.metrics.views > 0 && (
               <div className="flex items-center gap-1">
                 <Eye className="w-3 h-3" />
-                <span>{currentToken.metrics.views}</span>
+                <AnimatedValue value={currentToken.metrics.views} />
               </div>
             )}
           </div>
@@ -245,9 +243,11 @@ function TokenCardComponent({ token, onClick }: TokenCardProps) {
         <div className="flex flex-col items-end">
           <div className="text-xs">
             <span className="text-text-secondary mr-1">MC</span>
-            <span className="text-primary-green font-bold">
-              ${formatCompactNumber(currentToken.marketCap)}
-            </span>
+            <AnimatedValue
+              value={formatCompactNumber(currentToken.marketCap)}
+              prefix="$"
+              className="text-primary-green font-bold"
+            />
           </div>
         </div>
 
@@ -255,9 +255,11 @@ function TokenCardComponent({ token, onClick }: TokenCardProps) {
         <div className="flex flex-col items-end">
           <div className="text-xs">
             <span className="text-text-secondary mr-1">V</span>
-            <span className="text-text-primary font-bold">
-              ${formatCompactNumber(currentToken.volume)}
-            </span>
+            <AnimatedValue
+              value={formatCompactNumber(currentToken.volume)}
+              prefix="$"
+              className="text-text-primary font-bold"
+            />
           </div>
         </div>
 
@@ -266,15 +268,17 @@ function TokenCardComponent({ token, onClick }: TokenCardProps) {
           <div className="flex justify-end gap-2 text-[10px] w-full">
             <div className="flex items-center gap-0.5">
               <span className="text-text-secondary">F</span>
-              <span className="text-text-primary">
-                {formatSOL(currentToken.fees)}
-              </span>
+              <AnimatedValue
+                value={formatSOL(currentToken.fees)}
+                className="text-text-primary"
+              />
             </div>
             <div className="flex items-center gap-0.5">
               <span className="text-text-secondary">TX</span>
-              <span className="text-text-primary">
-                {currentToken.transactions}
-              </span>
+              <AnimatedValue
+                value={currentToken.transactions}
+                className="text-text-primary"
+              />
             </div>
           </div>
           {/* Progress bar line from screenshot? */}
