@@ -9,6 +9,9 @@ const config: Config = {
   ],
   theme: {
     extend: {
+      screens: {
+        'kanban': '1020px', // Custom breakpoint for Kanban board
+      },
       colors: {
         background: {
           DEFAULT: "rgb(6, 7, 11)",

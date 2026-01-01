@@ -1,6 +1,6 @@
 "use client";
 
-import { KanbanBoard } from "@/components/organisms/KanbanBoard";
+import { ResponsiveKanbanBoard } from "@/components/organisms/ResponsiveKanbanBoard";
 import { TokenModal } from "@/components/organisms/TokenModal";
 import { useTokens } from "@/hooks/useTokens";
 import { useAppSelector } from "@/hooks/useRedux";
@@ -57,7 +57,7 @@ export default function HomePage() {
               </p>
             </div>
           ) : (
-            <KanbanBoard
+            <ResponsiveKanbanBoard
               tokens={allTokens}
               isLoading={isLoading}
               onTokenClick={handleTokenClick}
