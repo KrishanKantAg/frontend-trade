@@ -43,7 +43,7 @@
   }
 }
 
-/* Custom scrollbar */
+/* Custom scrollbar - Keeping for fallback but SimpleBar will override for main areas */
 ::-webkit-scrollbar {
   width: 8px;
   height: 8px;
@@ -65,6 +65,23 @@
 
 ::-webkit-scrollbar-thumb:hover {
   @apply bg-text-tertiary;
+}
+
+/* Custom SimpleBar styles */
+.simplebar-scrollbar::before {
+  background-color: theme("colors.text.tertiary");
+  opacity: 0.5;
+  width: 4px;
+  border-radius: 4px;
+}
+
+.simplebar-track.simplebar-vertical {
+  width: 8px;
+  background-color: transparent;
+}
+
+.simplebar-scrollbar.simplebar-visible::before {
+  opacity: 0.8;
 }
 
 /* Smooth color transitions for price updates */

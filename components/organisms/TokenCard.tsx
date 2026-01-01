@@ -72,8 +72,8 @@ function TokenCardComponent({ token, onClick }: TokenCardProps) {
   return (
     <div
       className={cn(
-        "flex flex-row p-2 gap-3",
-        "bg-background-secondary rounded-lg",
+        "flex flex-row gap-3",
+        "bg-background-secondary",
         "border border-stroke-primary",
         "cursor-pointer hover:border-primary-blue/50 transition-all duration-200",
         "hover:bg-background-tertiary"

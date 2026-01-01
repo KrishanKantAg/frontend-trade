@@ -6,6 +6,8 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { memo, useMemo } from "react";
 import { Filter } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import SimpleBar from "simplebar-react";
+import "simplebar-react/dist/simplebar.min.css";
 
 interface KanbanBoardProps {
   tokens: Token[];
@@ -19,12 +21,16 @@ const columns = [
   { id: "migrated" as const, label: "Migrated" },
 ];
 
-function KanbanBoardComponent({ tokens, isLoading, onTokenClick }: KanbanBoardProps) {
+function KanbanBoardComponent({
+  tokens,
+  isLoading,
+  onTokenClick,
+}: KanbanBoardProps) {
   const tokensByCategory = useMemo(() => {
     const grouped: Record<string, Token[]> = {
       "new-pairs": [],
       "final-stretch": [],
-      "migrated": [],
+      migrated: [],
     };
 
     tokens.forEach((token) => {
@@ -43,18 +49,22 @@ function KanbanBoardComponent({ tokens, isLoading, onTokenClick }: KanbanBoardPr
           <div key={column.id} className="flex-1 flex flex-col">
             <div className="flex items-center justify-between mb-3">
               <div className="flex items-center gap-2">
-                <h3 className="text-sm font-semibold text-text-primary">{column.label}</h3>
+                <h3 className="text-sm font-semibold text-text-primary">
+                  {column.label}
+                </h3>
                 <span className="text-xs text-text-secondary">0</span>
               </div>
               <Button variant="ghost" size="icon" className="h-6 w-6">
                 <Filter className="w-3 h-3" />
               </Button>
             </div>
-            <div className="flex flex-col gap-3 overflow-y-auto">
-              {Array.from({ length: 5 }).map((_, i) => (
-                <Skeleton key={i} className="h-48 rounded-lg" />
-              ))}
-            </div>
+            <SimpleBar className="flex-1 min-h-0">
+              <div className="flex flex-col gap-3 p-1">
+                {Array.from({ length: 5 }).map((_, i) => (
+                  <Skeleton key={i} className="h-48 rounded-lg" />
+                ))}
+              </div>
+            </SimpleBar>
           </div>
         ))}
       </div>
@@ -70,8 +80,12 @@ function KanbanBoardComponent({ tokens, isLoading, onTokenClick }: KanbanBoardPr
             {/* Column Header */}
             <div className="flex items-center justify-between mb-3 px-1">
               <div className="flex items-center gap-2">
-                <h3 className="text-sm font-semibold text-text-primary">{column.label}</h3>
-                <span className="text-xs text-text-secondary">{columnTokens.length}</span>
+                <h3 className="text-sm font-semibold text-text-primary">
+                  {column.label}
+                </h3>
+                <span className="text-xs text-text-secondary">
+                  {columnTokens.length}
+                </span>
                 <span className="text-xs text-text-tertiary">P1 P2 P3</span>
               </div>
               <Button variant="ghost" size="icon" className="h-6 w-6">
@@ -80,17 +94,23 @@ function KanbanBoardComponent({ tokens, isLoading, onTokenClick }: KanbanBoardPr
             </div>
 
             {/* Column Content */}
-            <div className="flex flex-col gap-3 overflow-y-auto flex-1">
-              {columnTokens.length === 0 ? (
-                <div className="flex items-center justify-center h-32 text-text-secondary text-sm">
-                  No tokens
-                </div>
-              ) : (
-                columnTokens.map((token) => (
-                  <TokenCard key={token.id} token={token} onClick={onTokenClick} />
-                ))
-              )}
-            </div>
+            <SimpleBar className="flex-1 min-h-0">
+              <div className="flex flex-col gap-3 p-1">
+                {columnTokens.length === 0 ? (
+                  <div className="flex items-center justify-center h-32 text-text-secondary text-sm">
+                    No tokens
+                  </div>
+                ) : (
+                  columnTokens.map((token) => (
+                    <TokenCard
+                      key={token.id}
+                      token={token}
+                      onClick={onTokenClick}
+                    />
+                  ))
+                )}
+              </div>
+            </SimpleBar>
           </div>
         );
       })}
@@ -99,4 +119,3 @@ function KanbanBoardComponent({ tokens, isLoading, onTokenClick }: KanbanBoardPr
 }
 
 export const KanbanBoard = memo(KanbanBoardComponent);
-

@@ -7,6 +7,8 @@ import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import { memo, useMemo, useState } from "react";
 import { Filter } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import SimpleBar from "simplebar-react";
+import "simplebar-react/dist/simplebar.min.css";
 
 interface ResponsiveKanbanBoardProps {
   tokens: Token[];
@@ -66,17 +68,23 @@ function ResponsiveKanbanBoardComponent({
         </div>
 
         {/* Column Content */}
-        <div className="flex flex-col gap-3 overflow-y-auto flex-1">
-          {columnTokens.length === 0 ? (
-            <div className="flex items-center justify-center h-32 text-text-secondary text-sm">
-              No tokens
-            </div>
-          ) : (
-            columnTokens.map((token) => (
-              <TokenCard key={token.id} token={token} onClick={onTokenClick} />
-            ))
-          )}
-        </div>
+        <SimpleBar className="flex-1 min-h-0">
+          <div className="flex flex-col gap-3 p-1">
+            {columnTokens.length === 0 ? (
+              <div className="flex items-center justify-center h-32 text-text-secondary text-sm">
+                No tokens
+              </div>
+            ) : (
+              columnTokens.map((token) => (
+                <TokenCard
+                  key={token.id}
+                  token={token}
+                  onClick={onTokenClick}
+                />
+              ))
+            )}
+          </div>
+        </SimpleBar>
       </div>
     );
   };
@@ -94,11 +102,13 @@ function ResponsiveKanbanBoardComponent({
               <span className="text-xs text-text-secondary">0</span>
             </div>
           </div>
-          <div className="flex flex-col gap-3 overflow-y-auto flex-1">
-            {Array.from({ length: 5 }).map((_, i) => (
-              <Skeleton key={i} className="h-48 rounded-lg" />
-            ))}
-          </div>
+          <SimpleBar className="flex-1 min-h-0">
+            <div className="flex flex-col gap-3 p-1">
+              {Array.from({ length: 5 }).map((_, i) => (
+                <Skeleton key={i} className="h-48 rounded-lg" />
+              ))}
+            </div>
+          </SimpleBar>
         </div>
 
         {/* Desktop Loading State */}
@@ -117,11 +127,13 @@ function ResponsiveKanbanBoardComponent({
                     <Filter className="w-3 h-3" />
                   </Button>
                 </div>
-                <div className="flex flex-col gap-3 overflow-y-auto p-4 flex-1">
-                  {Array.from({ length: 5 }).map((_, i) => (
-                    <Skeleton key={i} className="h-48 rounded-lg" />
-                  ))}
-                </div>
+                <SimpleBar className="flex-1 min-h-0">
+                  <div className="flex flex-col gap-3 p-4">
+                    {Array.from({ length: 5 }).map((_, i) => (
+                      <Skeleton key={i} className="h-48 rounded-lg" />
+                    ))}
+                  </div>
+                </SimpleBar>
               </div>
             ))}
           </div>
@@ -184,21 +196,23 @@ function ResponsiveKanbanBoardComponent({
                 </div>
 
                 {/* Column Content */}
-                <div className="flex flex-col overflow-y-auto flex-1">
-                  {columnTokens.length === 0 ? (
-                    <div className="flex items-center justify-center h-full text-text-secondary text-sm">
-                      No tokens
-                    </div>
-                  ) : (
-                    columnTokens.map((token) => (
-                      <TokenCard
-                        key={token.id}
-                        token={token}
-                        onClick={onTokenClick}
-                      />
-                    ))
-                  )}
-                </div>
+                <SimpleBar className="flex-1 min-h-0">
+                  <div className="flex flex-col">
+                    {columnTokens.length === 0 ? (
+                      <div className="flex items-center justify-center h-full text-text-secondary text-sm">
+                        No tokens
+                      </div>
+                    ) : (
+                      columnTokens.map((token) => (
+                        <TokenCard
+                          key={token.id}
+                          token={token}
+                          onClick={onTokenClick}
+                        />
+                      ))
+                    )}
+                  </div>
+                </SimpleBar>
               </div>
             );
           })}
