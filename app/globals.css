@@ -1,0 +1,108 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 6 7 11;
+    --foreground: 252 252 252;
+    --primary-color: 82 111 255;
+    --primary-color-hover: 102 131 255;
+    --primary-stroke: 34 36 45;
+    --secondary-stroke: 50 53 66;
+    --background-secondary: 16 17 20;
+    --background-tertiary: 24 24 26;
+    --text-primary: 252 252 252;
+    --text-secondary: 200 201 209;
+    --text-tertiary: 119 122 140;
+    --border-subtle: 31 31 35;
+    --decrease: 236 57 122;
+    --primary-green: 18 175 128;
+    --primary-orange: 226 124 77;
+    --chart-up: 11 153 129;
+    --increase-hover: 91 231 189;
+    --translation-text-color: 242 195 102;
+    --primary-orange-hover: 238 146 103;
+    --increase: 47 227 172;
+    --decrease-hover: 248 100 154;
+    --chart-down: 242 53 70;
+    --primary-red: 242 84 97;
+    --primary-light-blue: 82 197 255;
+    --primary-yellow: 220 193 60;
+  }
+
+  body {
+    @apply bg-background text-text-primary antialiased;
+    font-family: "IBM Plex Sans", sans-serif;
+  }
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  @apply bg-background;
+}
+
+::-webkit-scrollbar-thumb {
+  @apply bg-stroke-secondary rounded-full;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  @apply bg-text-tertiary;
+}
+
+/* Smooth color transitions for price updates */
+.price-update {
+  transition: color 150ms ease-in-out, background-color 150ms ease-in-out;
+}
+
+.price-increase {
+  @apply text-increase;
+  animation: pricePulse 1s ease-in-out;
+}
+
+.price-decrease {
+  @apply text-decrease;
+  animation: pricePulse 1s ease-in-out;
+}
+
+@keyframes pricePulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.7;
+  }
+}
+
+/* Shimmer effect for loading */
+@keyframes shimmer {
+  0% {
+    background-position: -1000px 0;
+  }
+  100% {
+    background-position: 1000px 0;
+  }
+}
+
+.shimmer {
+  animation: shimmer 2s infinite linear;
+  background: linear-gradient(
+    to right,
+    rgb(34, 36, 45) 0%,
+    rgb(50, 53, 66) 50%,
+    rgb(34, 36, 45) 100%
+  );
+  background-size: 1000px 100%;
+}
+
