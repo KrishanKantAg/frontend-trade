@@ -168,7 +168,7 @@ function TokenCardComponent({ token, onClick }: TokenCardProps) {
               <span
                 className={getPercentageColor(currentToken.percentages.oneHour)}
               >
-                {Math.abs(currentToken.percentages.oneHour)}%
+                {Math.round(Math.abs(currentToken.percentages.oneHour))}%
               </span>
             </div>
 
@@ -183,7 +183,7 @@ function TokenCardComponent({ token, onClick }: TokenCardProps) {
               <span
                 className={getPercentageColor(currentToken.percentages.sixHour)}
               >
-                {Math.abs(currentToken.percentages.sixHour)}%
+                {Math.round(Math.abs(currentToken.percentages.sixHour))}%
               </span>
               <span className="text-text-tertiary ml-1">1h</span>
             </div>
@@ -199,7 +199,7 @@ function TokenCardComponent({ token, onClick }: TokenCardProps) {
               <span
                 className={getPercentageColor(currentToken.percentages.oneDay)}
               >
-                {Math.abs(currentToken.percentages.oneDay)}%
+                {Math.round(Math.abs(currentToken.percentages.oneDay))}%
               </span>
             </div>
 
@@ -214,7 +214,7 @@ function TokenCardComponent({ token, onClick }: TokenCardProps) {
               <span
                 className={getPercentageColor(currentToken.percentages.oneWeek)}
               >
-                {Math.abs(currentToken.percentages.oneWeek)}%
+                {Math.round(Math.abs(currentToken.percentages.oneWeek))}%
               </span>
             </div>
 
@@ -231,7 +231,7 @@ function TokenCardComponent({ token, onClick }: TokenCardProps) {
                   currentToken.percentages.oneMonth
                 )}
               >
-                {Math.abs(currentToken.percentages.oneMonth)}%
+                {Math.round(Math.abs(currentToken.percentages.oneMonth))}%
               </span>
             </div>
           </div>
