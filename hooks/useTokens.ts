@@ -12,8 +12,8 @@ import { useEffect } from "react";
  * In production, this would call the actual API
  */
 async function fetchTokens(): Promise<Token[]> {
-  // Simulate API delay
-  await new Promise((resolve) => setTimeout(resolve, 1000));
+  // Simulate API delay (reduced for faster development)
+  await new Promise((resolve) => setTimeout(resolve, 100));
 
   const categories: Token["category"][] = ["new-pairs", "final-stretch", "migrated"];
   
@@ -72,6 +72,9 @@ export function useTokens() {
     queryKey: ["tokens"],
     queryFn: () => fetchTokens(),
     staleTime: 30000, // 30 seconds
+    gcTime: 5 * 60 * 1000, // 5 minutes (formerly cacheTime)
+    refetchOnMount: false,
+    refetchOnWindowFocus: false,
   });
 
   useEffect(() => {

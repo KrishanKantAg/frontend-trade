@@ -3,7 +3,6 @@
 import { ResponsiveKanbanBoard } from "@/components/organisms/ResponsiveKanbanBoard";
 import { TokenModal } from "@/components/organisms/TokenModal";
 import { useTokens } from "@/hooks/useTokens";
-import { useAppSelector } from "@/hooks/useRedux";
 import { ErrorBoundary } from "@/components/error-boundary";
 import { Settings, Filter } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -11,8 +10,7 @@ import { useState } from "react";
 import { Token } from "@/types/token";
 
 export default function HomePage() {
-  const { isLoading, error } = useTokens();
-  const allTokens = useAppSelector((state) => state.tokens.tokens);
+  const { tokens, isLoading, error } = useTokens();
   const [selectedToken, setSelectedToken] = useState<Token | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -58,7 +56,7 @@ export default function HomePage() {
             </div>
           ) : (
             <ResponsiveKanbanBoard
-              tokens={allTokens}
+              tokens={tokens}
               isLoading={isLoading}
               onTokenClick={handleTokenClick}
             />
