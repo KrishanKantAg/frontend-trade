@@ -23,25 +23,9 @@ export default function HomePage() {
     <ErrorBoundary>
       <div className="flex flex-col h-screen-safe overflow-hidden">
         {/* Header */}
-        <div className="border-b border-stroke-primary px-2 sm:px-4 lg:px-6 py-3 sm:py-4">
-          <div className="flex items-center justify-between mb-3 sm:mb-4">
+        <div className="px-2 sm:px-4 lg:px-6 py-3 sm:py-4">
+          <div className="flex items-center justify-between">
             <h1 className="text-lg sm:text-xl font-semibold">Pulse</h1>
-            <div className="flex items-center gap-1 sm:gap-2">
-              <Button
-                variant="ghost"
-                size="icon"
-                className="h-8 w-8 sm:h-10 sm:w-10"
-              >
-                <Filter className="w-3 h-3 sm:w-4 sm:h-4" />
-              </Button>
-              <Button
-                variant="ghost"
-                size="icon"
-                className="h-8 w-8 sm:h-10 sm:w-10"
-              >
-                <Settings className="w-3 h-3 sm:w-4 sm:h-4" />
-              </Button>
-            </div>
           </div>
         </div>
 
