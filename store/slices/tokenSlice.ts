@@ -62,6 +62,13 @@ const tokenSlice = createSlice({
       state.tokens.forEach(updateToken);
       state.filteredTokens.forEach(updateToken);
     },
+    addToken: (state, action: PayloadAction<Token>) => {
+      state.tokens.unshift(action.payload);
+      // Only add to filtered tokens if it matches the current tab
+      if (state.activeTab === action.payload.category) {
+        state.filteredTokens.unshift(action.payload);
+      }
+    },
     setLoading: (state, action: PayloadAction<boolean>) => {
       state.isLoading = action.payload;
     },
@@ -122,6 +129,7 @@ export const {
   setSort,
   updatePrice,
   updateTokenData,
+  addToken,
   setLoading,
   setError,
   filterTokens,

@@ -3,6 +3,8 @@
 import { ResponsiveKanbanBoard } from "@/components/organisms/ResponsiveKanbanBoard";
 import { TokenModal } from "@/components/organisms/TokenModal";
 import { useTokens } from "@/hooks/useTokens";
+import { useWebSocket } from "@/hooks/useWebSocket";
+import { useAppSelector } from "@/hooks/useRedux";
 import { ErrorBoundary } from "@/components/error-boundary";
 import { Settings, Filter } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -10,7 +12,12 @@ import { useState } from "react";
 import { Token } from "@/types/token";
 
 export default function HomePage() {
-  const { tokens, isLoading, error } = useTokens();
+  const { isLoading, error } = useTokens(); // Fetch initial data
+  const tokens = useAppSelector((state) => state.tokens.tokens); // Get from Redux
+
+  // Activate real-time updates and token generation
+  useWebSocket(tokens);
+
   const [selectedToken, setSelectedToken] = useState<Token | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
 

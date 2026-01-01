@@ -20,7 +20,6 @@ import {
   Leaf,
 } from "lucide-react";
 import { memo, useMemo, useState } from "react";
-import { useWebSocket } from "@/hooks/useWebSocket";
 import { useAppSelector } from "@/hooks/useRedux";
 import { cn } from "@/lib/utils";
 import { CopyToClipboard } from "react-copy-to-clipboard";
@@ -38,10 +37,6 @@ function TokenCardComponent({ token, onClick }: TokenCardProps) {
     () => tokens.find((t) => t.id === token.id) || token,
     [tokens, token]
   );
-
-  // Subscribe to WebSocket updates for this token
-  const tokenList = useMemo(() => [currentToken], [currentToken]);
-  useWebSocket(tokenList);
 
   const [copied, setCopied] = useState(false);
 
