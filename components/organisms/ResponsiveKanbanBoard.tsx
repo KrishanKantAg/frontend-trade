@@ -31,7 +31,7 @@ function ResponsiveKanbanBoardComponent({
     const grouped: Record<string, Token[]> = {
       "new-pairs": [],
       "final-stretch": [],
-      "migrated": [],
+      migrated: [],
     };
 
     tokens.forEach((token) => {
@@ -52,8 +52,12 @@ function ResponsiveKanbanBoardComponent({
         {/* Column Header */}
         <div className="flex items-center justify-between mb-3 px-1">
           <div className="flex items-center gap-2">
-            <h3 className="text-sm font-semibold text-text-primary">{columnLabel}</h3>
-            <span className="text-xs text-text-secondary">{columnTokens.length}</span>
+            <h3 className="text-sm font-semibold text-text-primary">
+              {columnLabel}
+            </h3>
+            <span className="text-xs text-text-secondary">
+              {columnTokens.length}
+            </span>
             <span className="text-xs text-text-tertiary">P1 P2 P3</span>
           </div>
           <Button variant="ghost" size="icon" className="h-6 w-6">
@@ -84,7 +88,9 @@ function ResponsiveKanbanBoardComponent({
         <div className="kanban:hidden flex flex-col h-full p-4">
           <div className="flex items-center justify-between mb-3">
             <div className="flex items-center gap-2">
-              <h3 className="text-sm font-semibold text-text-primary">Loading...</h3>
+              <h3 className="text-sm font-semibold text-text-primary">
+                Loading...
+              </h3>
               <span className="text-xs text-text-secondary">0</span>
             </div>
           </div>
@@ -96,25 +102,29 @@ function ResponsiveKanbanBoardComponent({
         </div>
 
         {/* Desktop Loading State */}
-        <div className="hidden kanban:flex gap-4 h-full p-4">
-          {columns.map((column) => (
-            <div key={column.id} className="flex-1 flex flex-col">
-              <div className="flex items-center justify-between mb-3">
-                <div className="flex items-center gap-2">
-                  <h3 className="text-sm font-semibold text-text-primary">{column.label}</h3>
-                  <span className="text-xs text-text-secondary">0</span>
+        <div className="hidden kanban:flex h-full p-6">
+          <div className="flex w-full h-full border border-stroke-primary divide-x divide-stroke-primary rounded-lg overflow-hidden">
+            {columns.map((column) => (
+              <div key={column.id} className="flex-1 flex flex-col">
+                <div className="flex items-center justify-between p-4 border-b border-stroke-primary">
+                  <div className="flex items-center gap-2">
+                    <h3 className="text-sm font-semibold text-text-primary">
+                      {column.label}
+                    </h3>
+                    <span className="text-xs text-text-secondary">0</span>
+                  </div>
+                  <Button variant="ghost" size="icon" className="h-6 w-6">
+                    <Filter className="w-3 h-3" />
+                  </Button>
                 </div>
-                <Button variant="ghost" size="icon" className="h-6 w-6">
-                  <Filter className="w-3 h-3" />
-                </Button>
+                <div className="flex flex-col gap-3 overflow-y-auto p-4 flex-1">
+                  {Array.from({ length: 5 }).map((_, i) => (
+                    <Skeleton key={i} className="h-48 rounded-lg" />
+                  ))}
+                </div>
               </div>
-              <div className="flex flex-col gap-3 overflow-y-auto">
-                {Array.from({ length: 5 }).map((_, i) => (
-                  <Skeleton key={i} className="h-48 rounded-lg" />
-                ))}
-              </div>
-            </div>
-          ))}
+            ))}
+          </div>
         </div>
       </>
     );
@@ -122,10 +132,14 @@ function ResponsiveKanbanBoardComponent({
 
   return (
     <>
-        {/* Mobile View: Tabs with Single Column */}
+      {/* Mobile View: Tabs with Single Column */}
       <div className="kanban:hidden flex flex-col h-full">
         <div className="px-4 pt-4 pb-2 border-b border-stroke-primary">
-          <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
+          <Tabs
+            value={activeTab}
+            onValueChange={setActiveTab}
+            className="w-full"
+          >
             <TabsList className="w-full justify-start">
               {columns.map((column) => (
                 <TabsTrigger key={column.id} value={column.id}>
@@ -138,7 +152,11 @@ function ResponsiveKanbanBoardComponent({
         <div className="flex-1 overflow-hidden p-4">
           <Tabs value={activeTab} onValueChange={setActiveTab}>
             {columns.map((column) => (
-              <TabsContent key={column.id} value={column.id} className="h-full mt-0">
+              <TabsContent
+                key={column.id}
+                value={column.id}
+                className="h-full mt-0"
+              >
                 {renderColumn(column.id, column.label)}
               </TabsContent>
             ))}
@@ -147,42 +165,54 @@ function ResponsiveKanbanBoardComponent({
       </div>
 
       {/* Desktop View: Three Columns Side by Side */}
-      <div className="hidden kanban:flex gap-4 h-full p-4 overflow-x-auto">
-        {columns.map((column) => {
-          const columnTokens = tokensByCategory[column.id] || [];
-          return (
-            <div key={column.id} className="flex-1 min-w-[320px] flex flex-col">
-              {/* Column Header */}
-              <div className="flex items-center justify-between mb-3 px-1">
-                <div className="flex items-center gap-2">
-                  <h3 className="text-sm font-semibold text-text-primary">{column.label}</h3>
-                  <span className="text-xs text-text-secondary">{columnTokens.length}</span>
-                  <span className="text-xs text-text-tertiary">P1 P2 P3</span>
-                </div>
-                <Button variant="ghost" size="icon" className="h-6 w-6">
-                  <Filter className="w-3 h-3" />
-                </Button>
-              </div>
-
-              {/* Column Content */}
-              <div className="flex flex-col gap-3 overflow-y-auto flex-1">
-                {columnTokens.length === 0 ? (
-                  <div className="flex items-center justify-center h-32 text-text-secondary text-sm">
-                    No tokens
+      <div className="hidden kanban:flex h-full p-6 overflow-x-auto">
+        <div className="flex min-w-full h-full border border-stroke-primary divide-x divide-stroke-primary rounded-lg overflow-hidden">
+          {columns.map((column) => {
+            const columnTokens = tokensByCategory[column.id] || [];
+            return (
+              <div
+                key={column.id}
+                className="flex-1 min-w-[320px] flex flex-col"
+              >
+                {/* Column Header */}
+                <div className="flex items-center justify-between p-4 border-b border-stroke-primary bg-background-secondary/50">
+                  <div className="flex items-center gap-2">
+                    <h3 className="text-sm font-semibold text-text-primary">
+                      {column.label}
+                    </h3>
+                    <span className="text-xs text-text-secondary">
+                      {columnTokens.length}
+                    </span>
+                    <span className="text-xs text-text-tertiary">P1 P2 P3</span>
                   </div>
-                ) : (
-                  columnTokens.map((token) => (
-                    <TokenCard key={token.id} token={token} onClick={onTokenClick} />
-                  ))
-                )}
+                  <Button variant="ghost" size="icon" className="h-6 w-6">
+                    <Filter className="w-3 h-3" />
+                  </Button>
+                </div>
+
+                {/* Column Content */}
+                <div className="flex flex-col gap-3 overflow-y-auto flex-1 p-4">
+                  {columnTokens.length === 0 ? (
+                    <div className="flex items-center justify-center h-full text-text-secondary text-sm">
+                      No tokens
+                    </div>
+                  ) : (
+                    columnTokens.map((token) => (
+                      <TokenCard
+                        key={token.id}
+                        token={token}
+                        onClick={onTokenClick}
+                      />
+                    ))
+                  )}
+                </div>
               </div>
-            </div>
-          );
-        })}
+            );
+          })}
+        </div>
       </div>
     </>
   );
 }
 
 export const ResponsiveKanbanBoard = memo(ResponsiveKanbanBoardComponent);
-
