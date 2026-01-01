@@ -1,18 +1,3 @@
-# Axiom Trade - Pulse Token Discovery Table
-
-A pixel-perfect replica of Axiom Trade's token discovery table built with Next.js 14, TypeScript, and Tailwind CSS.
-
-## Features
-
-- ✅ **All Token Columns**: New Pairs, Final Stretch, Migrated
-- ✅ **Interactive Components**: Popover, Tooltip, Modal, Sorting
-- ✅ **Real-time Updates**: WebSocket mock with smooth color transitions
-- ✅ **Loading States**: Skeleton, shimmer, progressive loading
-- ✅ **Error Handling**: Error boundaries and comprehensive error handling
-- ✅ **Performance Optimized**: Memoized components, <100ms interactions
-- ✅ **Responsive Design**: Works down to 320px width
-- ✅ **Pixel-Perfect**: ≤2px visual difference from original
-
 ## Tech Stack
 
 - **Framework**: Next.js 14 (App Router)
@@ -65,8 +50,6 @@ npm run build
 # Start production server
 npm start
 ```
-
-Open [http://localhost:3000](http://localhost:3000) in your browser.
 
 ## Architecture
 
@@ -133,37 +116,6 @@ The layout is fully responsive and tested at:
 - `lg`: 1024px
 - `xl`: 1280px
 - `2xl`: 1536px
-
-## Performance Metrics
-
-Target Lighthouse scores:
-
-- **Performance**: ≥90
-- **Accessibility**: ≥90
-- **Best Practices**: ≥90
-- **SEO**: ≥90
-
-## Development
-
-### Type Checking
-
-```bash
-npm run type-check
-```
-
-### Linting
-
-```bash
-npm run lint
-```
-
-## License
-
-MIT
-
-## Acknowledgments
-
-- Design based on [Axiom Trade](https://axiom.trade/pulse)
 - Built with [Next.js](https://nextjs.org/)
 - UI components from [Radix UI](https://www.radix-ui.com/)
 - Icons from [Lucide](https://lucide.dev/)
