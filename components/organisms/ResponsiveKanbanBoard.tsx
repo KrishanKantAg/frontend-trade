@@ -108,7 +108,7 @@ function ResponsiveKanbanBoardComponent({
               <div key={column.id} className="flex-1 flex flex-col">
                 <div className="flex items-center justify-between p-4 border-b border-stroke-primary">
                   <div className="flex items-center gap-2">
-                    <h3 className="text-sm font-semibold text-text-primary">
+                    <h3 className="text-textPrimary text-[16px] font-medium flex-1">
                       {column.label}
                     </h3>
                     <span className="text-xs text-text-secondary">0</span>
@@ -177,21 +177,14 @@ function ResponsiveKanbanBoardComponent({
                 {/* Column Header */}
                 <div className="flex items-center justify-between p-4 border-b border-stroke-primary bg-background-secondary/50">
                   <div className="flex items-center gap-2">
-                    <h3 className="text-sm font-semibold text-text-primary">
+                    <h3 className="text-textPrimary text-[16px] font-medium flex-1">
                       {column.label}
                     </h3>
-                    <span className="text-xs text-text-secondary">
-                      {columnTokens.length}
-                    </span>
-                    <span className="text-xs text-text-tertiary">P1 P2 P3</span>
                   </div>
-                  <Button variant="ghost" size="icon" className="h-6 w-6">
-                    <Filter className="w-3 h-3" />
-                  </Button>
                 </div>
 
                 {/* Column Content */}
-                <div className="flex flex-col gap-3 overflow-y-auto flex-1 p-4">
+                <div className="flex flex-col overflow-y-auto flex-1">
                   {columnTokens.length === 0 ? (
                     <div className="flex items-center justify-center h-full text-text-secondary text-sm">
                       No tokens

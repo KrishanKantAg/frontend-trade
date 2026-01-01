@@ -104,7 +104,7 @@ function TokenCardComponent({ token, onClick }: TokenCardProps) {
             <span className="font-bold text-text-primary text-sm truncate">
               {currentToken.symbol}
             </span>
-            <span className="text-xs text-text-secondary truncate flex-1">
+            <span className="text-xs text-text-secondary truncate">
               {currentToken.name}
             </span>
             <CopyToClipboard text={currentToken.symbol} onCopy={handleCopy}>
@@ -239,7 +239,7 @@ function TokenCardComponent({ token, onClick }: TokenCardProps) {
       </div>
 
       {/* RIGHT SEGMENT (Fixed Width) */}
-      <div className="w-[120px] flex-shrink-0 flex flex-col justify-between items-end border-l border-stroke-primary pl-2 py-0.5">
+      <div className="w-[120px] flex-shrink-0 flex flex-col justify-between items-end border-stroke-primary pl-2 py-0.5">
         {/* MC */}
         <div className="flex flex-col items-end">
           <div className="text-xs">
