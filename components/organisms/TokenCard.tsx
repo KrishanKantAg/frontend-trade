@@ -76,7 +76,8 @@ function TokenCardComponent({ token, onClick }: TokenCardProps) {
         "bg-background-secondary",
         "border border-stroke-primary",
         "cursor-pointer hover:border-primary-blue/50 transition-all duration-200",
-        "hover:bg-background-tertiary"
+        "hover:bg-background-tertiary",
+        "px-[12px] pt-[12px]"
       )}
       onClick={() => onClick?.(currentToken)}
     >

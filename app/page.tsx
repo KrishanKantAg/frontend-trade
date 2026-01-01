@@ -21,12 +21,10 @@ export default function HomePage() {
 
   return (
     <ErrorBoundary>
-      <div className="flex flex-col h-screen-safe overflow-hidden">
+      <div className="flex flex-col h-screen-safe overflow-hidden px-[16px] py-[24px] gap-y-[16px]">
         {/* Header */}
-        <div className="px-2 sm:px-4 lg:px-6 py-3 sm:py-4">
-          <div className="flex items-center justify-between">
-            <h1 className="text-lg sm:text-xl font-semibold">Pulse</h1>
-          </div>
+        <div className="flex items-center justify-between">
+          <h1 className="text-lg sm:text-xl font-semibold">Pulse</h1>
         </div>
 
         {/* Main content - Kanban Board */}

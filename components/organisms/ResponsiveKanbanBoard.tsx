@@ -112,11 +112,11 @@ function ResponsiveKanbanBoardComponent({
         </div>
 
         {/* Desktop Loading State */}
-        <div className="hidden kanban:flex h-full p-6">
+        <div className="hidden kanban:flex h-full">
           <div className="flex w-full h-full border border-stroke-primary divide-x divide-stroke-primary rounded-lg overflow-hidden">
             {columns.map((column) => (
               <div key={column.id} className="flex-1 flex flex-col">
-                <div className="flex items-center justify-between p-4 border-b border-stroke-primary">
+                <div className="flex items-center justify-between min-h-[48px] border-b border-stroke-primary">
                   <div className="flex items-center gap-2">
                     <h3 className="text-textPrimary text-[16px] font-medium flex-1">
                       {column.label}
@@ -177,7 +177,7 @@ function ResponsiveKanbanBoardComponent({
       </div>
 
       {/* Desktop View: Three Columns Side by Side */}
-      <div className="hidden kanban:flex h-full p-6 overflow-x-auto">
+      <div className="hidden kanban:flex h-full overflow-x-auto">
         <div className="flex min-w-full h-full border border-stroke-primary divide-x divide-stroke-primary rounded-lg overflow-hidden">
           {columns.map((column) => {
             const columnTokens = tokensByCategory[column.id] || [];
