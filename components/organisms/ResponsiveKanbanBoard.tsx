@@ -45,6 +45,45 @@ function ResponsiveKanbanBoardComponent({
     return grouped;
   }, [tokens]);
 
+  // Skeleton that mirrors the TokenCard layout so loading feels consistent
+  const TokenCardSkeleton = () => (
+    <div className="flex flex-row gap-3 bg-background-secondary outline outline-1 outline-stroke-primary px-[12px] pt-[12px]">
+      <div className="flex flex-col items-center gap-1">
+        <Skeleton className="h-[68px] w-[68px] rounded-md" />
+        <Skeleton className="h-3 w-20" />
+      </div>
+
+      <div className="flex flex-col justify-between flex-1 min-w-0 py-0.5 gap-2">
+        <div className="flex items-center gap-2 min-w-0">
+          <Skeleton className="h-4 w-20" />
+          <Skeleton className="h-3 w-24" />
+          <Skeleton className="h-3 w-8" />
+        </div>
+
+        <div className="flex flex-wrap items-center gap-x-3 gap-y-2">
+          {Array.from({ length: 4 }).map((_, i) => (
+            <Skeleton key={`row2-${i}`} className="h-4 w-12" />
+          ))}
+        </div>
+
+        <div className="flex items-center justify-between gap-2">
+          {Array.from({ length: 5 }).map((_, i) => (
+            <Skeleton key={`pill-${i}`} className="h-6 w-12" />
+          ))}
+        </div>
+      </div>
+
+      <div className="w-[120px] flex-shrink-0 flex flex-col items-start gap-2 pl-2 py-0.5">
+        <Skeleton className="h-5 w-20" />
+        <Skeleton className="h-5 w-16" />
+        <div className="flex flex-col items-start gap-2 w-full">
+          <Skeleton className="h-4 w-24" />
+          <Skeleton className="h-[3px] w-24" />
+        </div>
+      </div>
+    </div>
+  );
+
   // Render a single column (for mobile)
   const renderColumn = (columnId: string, columnLabel: string) => {
     const columnTokens = tokensByCategory[columnId] || [];
@@ -69,7 +108,7 @@ function ResponsiveKanbanBoardComponent({
 
         {/* Column Content */}
         <SimpleBar className="flex-1 min-h-0">
-          <div className="flex flex-col gap-3 p-1">
+          <div className="flex flex-col gap-0">
             {columnTokens.length === 0 ? (
               <div className="flex items-center justify-center h-32 text-text-secondary text-sm">
                 No tokens
@@ -103,9 +142,9 @@ function ResponsiveKanbanBoardComponent({
             </div>
           </div>
           <SimpleBar className="flex-1 min-h-0">
-            <div className="flex flex-col gap-3 p-1">
+            <div className="flex flex-col gap-0">
               {Array.from({ length: 5 }).map((_, i) => (
-                <Skeleton key={i} className="h-48 rounded-lg" />
+                <TokenCardSkeleton key={i} />
               ))}
             </div>
           </SimpleBar>
@@ -128,9 +167,9 @@ function ResponsiveKanbanBoardComponent({
                   </Button>
                 </div>
                 <SimpleBar className="flex-1 min-h-0">
-                  <div className="flex flex-col gap-3 p-4">
+                  <div className="flex flex-col gap-0">
                     {Array.from({ length: 5 }).map((_, i) => (
-                      <Skeleton key={i} className="h-48 rounded-lg" />
+                      <TokenCardSkeleton key={i} />
                     ))}
                   </div>
                 </SimpleBar>
@@ -197,7 +236,7 @@ function ResponsiveKanbanBoardComponent({
 
                 {/* Column Content */}
                 <SimpleBar className="flex-1 min-h-0">
-                  <div className="flex flex-col">
+                  <div className="flex flex-col gap-0">
                     {columnTokens.length === 0 ? (
                       <div className="flex items-center justify-center h-full text-text-secondary text-sm">
                         No tokens
