@@ -83,8 +83,9 @@ function TokenCardComponent({ token, onClick }: TokenCardProps) {
         "flex flex-row gap-3",
         "bg-background-secondary",
         "outline outline-1 outline-stroke-primary",
-        "cursor-pointer hover:outline-primary-blue/50 transition-all duration-200",
-        "hover:bg-background-tertiary",
+        "cursor-pointer transition-all duration-200",
+        "hover:bg-[#1c1e24]",
+        "hover:shadow-[0_4px_16px_rgba(0,0,0,0.25)]",
         "px-[12px] pt-[12px]"
       )}
       onClick={() => onClick?.(currentToken)}
