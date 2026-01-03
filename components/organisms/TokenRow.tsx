@@ -9,8 +9,7 @@ import { PercentageIndicators } from "@/components/molecules/PercentageIndicator
 import { Button } from "@/components/ui/button";
 import { Zap } from "lucide-react";
 import { cn, getValueColorClass } from "@/lib/utils";
-import { memo } from "react";
-import { useWebSocket } from "@/hooks/useWebSocket";
+import { memo, useCallback } from "react";
 import { useAppSelector } from "@/hooks/useRedux";
 import { useState, useEffect, useMemo } from "react";
 
@@ -21,9 +20,7 @@ interface TokenRowProps {
 
 function TokenRowComponent({ token, onClick }: TokenRowProps) {
   const tokens = useAppSelector((state) => state.tokens.tokens);
-  const tokenIds = useMemo(() => tokens.map((t) => ({ id: t.id, price: t.price })), [tokens]);
-  useWebSocket(tokenIds);
-
+  
   const [priceAnimation, setPriceAnimation] = useState<"up" | "down" | null>(null);
   const currentToken = useMemo(
     () => tokens.find((t) => t.id === token.id) || token,
@@ -38,10 +35,14 @@ function TokenRowComponent({ token, onClick }: TokenRowProps) {
     }
   }, [currentToken.price, token.previousPrice]);
 
-  const priceChange = currentToken.price - currentToken.previousPrice;
-  const priceChangePercent = currentToken.previousPrice > 0 
-    ? ((priceChange / currentToken.previousPrice) * 100) 
-    : 0;
+  const handleClick = useCallback(() => {
+    onClick?.(currentToken);
+  }, [onClick, currentToken]);
+
+  const handleBuyClick = useCallback((e: React.MouseEvent) => {
+    e.stopPropagation();
+    // Handle buy action
+  }, []);
 
   return (
     <div
@@ -55,7 +56,7 @@ function TokenRowComponent({ token, onClick }: TokenRowProps) {
         "cursor-pointer hover:bg-background-secondary/50 transition-colors duration-125",
         "overflow-hidden"
       )}
-      onClick={() => onClick?.(currentToken)}
+      onClick={handleClick}
     >
       {/* Left side - Token info */}
       <div className="flex items-center gap-2 sm:gap-3 min-w-0 flex-1">
@@ -89,10 +90,7 @@ function TokenRowComponent({ token, onClick }: TokenRowProps) {
           variant="default"
           size="default"
           className="flex items-center gap-1 h-8 px-2 sm:px-3 text-xs sm:text-sm"
-          onClick={(e) => {
-            e.stopPropagation();
-            // Handle buy action
-          }}
+          onClick={handleBuyClick}
         >
           <Zap className="w-3 h-3 sm:w-4 sm:h-4" />
           <span className="hidden sm:inline">0 SOL</span>
@@ -103,4 +101,3 @@ function TokenRowComponent({ token, onClick }: TokenRowProps) {
 }
 
 export const TokenRow = memo(TokenRowComponent);
-
