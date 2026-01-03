@@ -10,7 +10,7 @@ const config: Config = {
   theme: {
     extend: {
       screens: {
-        'kanban': '1020px', // Custom breakpoint for Kanban board
+        kanban: "1020px", // Custom breakpoint for Kanban board
       },
       colors: {
         background: {
@@ -63,7 +63,8 @@ const config: Config = {
         "150": "150ms",
       },
       spacing: {
-        "screen-safe": "calc(100vh - env(safe-area-inset-top) - env(safe-area-inset-bottom))",
+        "screen-safe":
+          "calc(100vh - env(safe-area-inset-top) - env(safe-area-inset-bottom))",
       },
     },
   },
@@ -71,4 +72,3 @@ const config: Config = {
 };
 
 export default config;
-

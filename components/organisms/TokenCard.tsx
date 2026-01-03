@@ -57,6 +57,13 @@ function TokenCardComponent({ token, onClick }: TokenCardProps) {
     return "flex items-center gap-1 bg-background-tertiary px-1.5 py-0.5 rounded";
   };
 
+  const getMarketCapColor = (marketCap: number) => {
+    if (marketCap < 500_000) return "rgb(82, 197, 255)";
+    if (marketCap < 5_000_000) return "rgb(220, 193, 60)";
+    if (marketCap < 50_000_000) return "rgb(82, 111, 255)";
+    return "rgb(47, 227, 172)";
+  };
+
   const borderColor =
     currentToken.percentages.oneHour >= 0
       ? "border-primary-green"
@@ -237,11 +244,11 @@ function TokenCardComponent({ token, onClick }: TokenCardProps) {
         {/* MC */}
         <div className="flex flex-col items-end">
           <div className="text-xs">
-            <span className="text-text-secondary mr-1">MC</span>
+            <span className="text-text-tertiary text-[12px] mr-1">MC</span>
             <AnimatedValue
               value={formatCompactNumber(currentToken.marketCap)}
-              prefix="$"
-              className="text-primary-green font-bold"
+              className="font-medium text-[16px]"
+              style={{ color: getMarketCapColor(currentToken.marketCap) }}
             />
           </div>
         </div>
@@ -249,30 +256,42 @@ function TokenCardComponent({ token, onClick }: TokenCardProps) {
         {/* Volume */}
         <div className="flex flex-col items-end">
           <div className="text-xs">
-            <span className="text-text-secondary mr-1">V</span>
+            <span className="text-text-tertiary text-[12px] mr-1">V</span>
             <AnimatedValue
               value={formatCompactNumber(currentToken.volume)}
-              prefix="$"
-              className="text-text-primary font-bold"
+              className="font-medium text-[16px]"
+              style={{ color: "rgb(252, 252, 252)" }}
             />
           </div>
         </div>
 
         {/* Floor / TX */}
         <div className="flex flex-col items-end w-full">
-          <div className="flex justify-end gap-2 text-[10px] w-full">
+          <div className="flex justify-end gap-2 w-full">
             <div className="flex items-center gap-0.5">
-              <span className="text-text-secondary">F</span>
+              <span
+                className="text-[12px] font-medium mr-1"
+                style={{ color: "rgb(252, 252, 252)" }}
+              >
+                F
+              </span>
               <AnimatedValue
                 value={formatSOL(currentToken.fees)}
-                className="text-text-primary"
+                className="text-[12px] font-medium"
+                style={{ color: "rgb(252, 252, 252)" }}
               />
             </div>
             <div className="flex items-center gap-0.5">
-              <span className="text-text-secondary">TX</span>
+              <span
+                className="text-[12px] font-medium mr-1"
+                style={{ color: "rgb(252, 252, 252)" }}
+              >
+                TX
+              </span>
               <AnimatedValue
                 value={currentToken.transactions}
-                className="text-text-primary"
+                className="text-[12px] font-medium"
+                style={{ color: "rgb(252, 252, 252)" }}
               />
             </div>
           </div>

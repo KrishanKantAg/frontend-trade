@@ -17,6 +17,20 @@ async function fetchTokens(): Promise<Token[]> {
 
   const categories: Token["category"][] = ["new-pairs", "final-stretch", "migrated"];
   
+  const marketCapBuckets = [
+    { min: 120_000, max: 480_000 }, // shows rgb(82, 197, 255)
+    { min: 650_000, max: 4_800_000 }, // shows rgb(220, 193, 60)
+    { min: 6_500_000, max: 48_000_000 }, // shows rgb(82, 111, 255)
+    { min: 60_000_000, max: 180_000_000 }, // shows rgb(47, 227, 172)
+  ];
+
+  const chooseMarketCap = (i: number) => {
+    // Cycle through buckets to guarantee variety; add slight randomness inside each bucket
+    const bucket = marketCapBuckets[i % marketCapBuckets.length];
+    const span = bucket.max - bucket.min;
+    return bucket.min + Math.random() * span;
+  };
+
   // Mock token data - distribute across all categories
   const mockTokens: Token[] = Array.from({ length: 60 }, (_, i) => {
     // Distribute tokens across categories (20 each)
@@ -30,12 +44,12 @@ async function fetchTokens(): Promise<Token[]> {
       contractAddress: `${Math.random().toString(36).substring(2, 6)}...${Math.random().toString(36).substring(2, 6)}`,
       category: category,
       platform: ["pump", "bonk", "bags", "daos"][Math.floor(Math.random() * 4)] as TokenPlatform,
-      marketCap: Math.random() * 100000,
-      volume: Math.random() * 10000,
+      marketCap: chooseMarketCap(i),
+      volume: Math.random() * 5_000_000,
       fees: Math.random() * 0.5,
-      transactions: Math.floor(Math.random() * 100),
-      price: Math.random() * 100,
-      previousPrice: Math.random() * 100,
+      transactions: Math.floor(Math.random() * 1000),
+      price: Math.random() * 5,
+      previousPrice: Math.random() * 5,
       logoUrl: `https://picsum.photos/64/64?random=${i}`,
       badgeUrl: `https://picsum.photos/32/32?random=${i + 100}`,
       statusIndicator: "active",

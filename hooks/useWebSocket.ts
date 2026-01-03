@@ -45,6 +45,16 @@ function generateRandomToken(): Token {
     "migrated",
   ];
 
+  const marketCapBuckets = [
+    { min: 120_000, max: 480_000 }, // low
+    { min: 650_000, max: 4_800_000 }, // mid
+    { min: 6_500_000, max: 48_000_000 }, // high
+    { min: 60_000_000, max: 180_000_000 }, // very high
+  ];
+  const bucket =
+    marketCapBuckets[Math.floor(Math.random() * marketCapBuckets.length)];
+  const marketCap = bucket.min + Math.random() * (bucket.max - bucket.min);
+
   return {
     id: Math.random().toString(36).substring(7),
     name,
@@ -52,12 +62,12 @@ function generateRandomToken(): Token {
     contractAddress: Math.random().toString(36).substring(2, 42),
     category: categories[Math.floor(Math.random() * categories.length)],
     platform: "pump",
-    marketCap: Math.random() * 100000,
-    volume: Math.random() * 50000,
+    marketCap,
+    volume: Math.random() * 5_000_000,
     fees: Math.random() * 2,
-    transactions: Math.floor(Math.random() * 100),
-    price: Math.random() * 0.01,
-    previousPrice: Math.random() * 0.01,
+    transactions: Math.floor(Math.random() * 1500),
+    price: Math.random() * 5,
+    previousPrice: Math.random() * 5,
     logoUrl: `https://placehold.co/64x64/22242d/white?text=${symbol.substring(
       0,
       3
