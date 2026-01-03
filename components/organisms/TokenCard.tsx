@@ -283,7 +283,7 @@ function TokenCardComponent({ token, onClick }: TokenCardProps) {
             </div>
 
             {/* Row 3: Justified Icons (Percentages) */}
-            <div className="flex items-center justify-between text-[10px] gap-1">
+            <div className="flex flex-wrap items-center justify-start text-[10px] gap-1">
               {/* User - 1h */}
               <Tooltip>
                 <TooltipTrigger asChild>

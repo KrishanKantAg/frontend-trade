@@ -90,22 +90,6 @@ function ResponsiveKanbanBoardComponent({
 
     return (
       <div className="flex flex-col h-full">
-        {/* Column Header */}
-        <div className="flex items-center justify-between mb-3 px-1">
-          <div className="flex items-center gap-2">
-            <h3 className="text-sm font-semibold text-text-primary">
-              {columnLabel}
-            </h3>
-            <span className="text-xs text-text-secondary">
-              {columnTokens.length}
-            </span>
-            <span className="text-xs text-text-tertiary">P1 P2 P3</span>
-          </div>
-          <Button variant="ghost" size="icon" className="h-6 w-6">
-            <Filter className="w-3 h-3" />
-          </Button>
-        </div>
-
         {/* Column Content */}
         <SimpleBar className="flex-1 min-h-0">
           <div className="flex flex-col gap-0">
