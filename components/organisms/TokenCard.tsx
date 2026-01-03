@@ -64,6 +64,14 @@ function TokenCardComponent({ token, onClick }: TokenCardProps) {
     return "rgb(47, 227, 172)";
   };
 
+  const txChange = currentToken.percentages.oneHour ?? 0;
+  const txRatio = Math.min(1, Math.max(0, (txChange + 100) / 200)); // map -100..100 to 0..1
+  const txGreen = "rgb(47, 227, 172)";
+  const txRed = "rgb(236, 57, 122)";
+  const txGradient = `linear-gradient(to right, ${txGreen} 0%, ${txGreen} ${
+    txRatio * 100
+  }%, ${txRed} ${txRatio * 100}%, ${txRed} 100%)`;
+
   const borderColor =
     currentToken.percentages.oneHour >= 0
       ? "border-primary-green"
@@ -267,7 +275,7 @@ function TokenCardComponent({ token, onClick }: TokenCardProps) {
 
         {/* Floor / TX */}
         <div className="flex flex-col items-end w-full">
-          <div className="flex justify-end gap-2 w-full">
+          <div className="flex justify-end items-center gap-2 w-full">
             <div className="flex items-center gap-0.5">
               <span
                 className="text-[12px] font-medium mr-1"
@@ -294,13 +302,15 @@ function TokenCardComponent({ token, onClick }: TokenCardProps) {
                 style={{ color: "rgb(252, 252, 252)" }}
               />
             </div>
-          </div>
-          {/* Progress bar line from screenshot? */}
-          <div className="w-full h-1 bg-stroke-primary rounded-full mt-1 overflow-hidden">
             <div
-              className="h-full bg-primary-green"
-              style={{ width: "50%" }} // Placeholder or derived from something
-            />
+              className="h-[3px] bg-stroke-primary rounded-full overflow-hidden flex-shrink-0"
+              style={{ width: "24px" }}
+            >
+              <div
+                className="h-full"
+                style={{ width: "100%", background: txGradient }}
+              />
+            </div>
           </div>
         </div>
 
