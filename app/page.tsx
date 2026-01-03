@@ -6,13 +6,11 @@ import { useTokens } from "@/hooks/useTokens";
 import { useWebSocket } from "@/hooks/useWebSocket";
 import { useAppSelector } from "@/hooks/useRedux";
 import { ErrorBoundary } from "@/components/error-boundary";
-import { Settings, Filter } from "lucide-react";
-import { Button } from "@/components/ui/button";
 import { useState } from "react";
 import { Token } from "@/types/token";
 
 export default function HomePage() {
-  const { isLoading, error } = useTokens(); // Fetch initial data
+  const { isLoading, error } = useTokens();
   const tokens = useAppSelector((state) => state.tokens.tokens); // Get from Redux
 
   // Activate real-time updates and token generation
@@ -29,11 +27,6 @@ export default function HomePage() {
   return (
     <ErrorBoundary>
       <div className="flex flex-col h-screen-safe overflow-hidden px-[16px] py-[24px] gap-y-[16px]">
-        {/* Header */}
-        <div className="flex items-center justify-between">
-          <h1 className="text-lg sm:text-xl font-semibold">Pulse</h1>
-        </div>
-
         {/* Main content - Kanban Board */}
         <div className="flex-1 overflow-hidden">
           {error ? (
@@ -62,3 +55,4 @@ export default function HomePage() {
     </ErrorBoundary>
   );
 }
+

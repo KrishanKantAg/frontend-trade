@@ -85,13 +85,18 @@ function ResponsiveKanbanBoardComponent({
   );
 
   // Render a single column (for mobile)
-  const renderColumn = (columnId: string, columnLabel: string) => {
+  const renderColumn = (
+    columnId: string,
+    columnLabel: string,
+    opts?: { isMobile?: boolean }
+  ) => {
     const columnTokens = tokensByCategory[columnId] || [];
+    const isMobile = opts?.isMobile;
 
     return (
       <div className="flex flex-col h-full">
         {/* Column Content */}
-        <SimpleBar className="flex-1 min-h-0">
+        {isMobile ? (
           <div className="flex flex-col gap-0">
             {columnTokens.length === 0 ? (
               <div className="flex items-center justify-center h-32 text-text-secondary text-sm">
@@ -103,11 +108,30 @@ function ResponsiveKanbanBoardComponent({
                   key={token.id}
                   token={token}
                   onClick={onTokenClick}
+                  variant="mobile-row"
                 />
               ))
             )}
           </div>
-        </SimpleBar>
+        ) : (
+          <SimpleBar className="flex-1 min-h-0">
+            <div className="flex flex-col gap-0">
+              {columnTokens.length === 0 ? (
+                <div className="flex items-center justify-center h-32 text-text-secondary text-sm">
+                  No tokens
+                </div>
+              ) : (
+                columnTokens.map((token) => (
+                  <TokenCard
+                    key={token.id}
+                    token={token}
+                    onClick={onTokenClick}
+                  />
+                ))
+              )}
+            </div>
+          </SimpleBar>
+        )}
       </div>
     );
   };
@@ -169,34 +193,39 @@ function ResponsiveKanbanBoardComponent({
     <>
       {/* Mobile View: Tabs with Single Column */}
       <div className="kanban:hidden flex flex-col h-full">
-        <div className="px-4 pt-4 pb-2 border-b border-stroke-primary">
-          <Tabs
-            value={activeTab}
-            onValueChange={setActiveTab}
-            className="w-full"
-          >
-            <TabsList className="w-full justify-start">
+        <SimpleBar className="flex-1 min-h-0">
+          <div className="flex flex-col border border-stroke-primary">
+            <Tabs
+              value={activeTab}
+              onValueChange={setActiveTab}
+              className="w-full"
+            >
+              <TabsList className="w-full justify-start sticky top-0 z-10 bg-background px-4 pt-4 pb-0 gap-4 border-b border-stroke-primary">
+                {columns.map((column) => (
+                  <TabsTrigger
+                    key={column.id}
+                    value={column.id}
+                    className="group relative text-nowrap flex flex-row pb-3 gap-[4px] justify-start items-center rounded-none bg-transparent transition-none data-[state=active]:bg-transparent data-[state=active]:border-b-[2px] data-[state=active]:border-textPrimary data-[state=active]:mb-[-1px] data-[state=active]:text-textPrimary data-[state=inactive]:text-textSecondary hover:text-textPrimary"
+                  >
+                    <span className="text-[16px] leading-[16px] font-medium">
+                      {column.label}
+                    </span>
+                  </TabsTrigger>
+                ))}
+              </TabsList>
+
               {columns.map((column) => (
-                <TabsTrigger key={column.id} value={column.id}>
-                  {column.label}
-                </TabsTrigger>
+                <TabsContent
+                  key={column.id}
+                  value={column.id}
+                  className="h-full mt-0"
+                >
+                  {renderColumn(column.id, column.label, { isMobile: true })}
+                </TabsContent>
               ))}
-            </TabsList>
-          </Tabs>
-        </div>
-        <div className="flex-1 overflow-hidden p-4">
-          <Tabs value={activeTab} onValueChange={setActiveTab}>
-            {columns.map((column) => (
-              <TabsContent
-                key={column.id}
-                value={column.id}
-                className="h-full mt-0"
-              >
-                {renderColumn(column.id, column.label)}
-              </TabsContent>
-            ))}
-          </Tabs>
-        </div>
+            </Tabs>
+          </div>
+        </SimpleBar>
       </div>
 
       {/* Desktop View: Three Columns Side by Side */}

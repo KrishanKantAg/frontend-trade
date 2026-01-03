@@ -38,9 +38,14 @@ import {
 interface TokenCardProps {
   token: Token;
   onClick?: (token: Token) => void;
+  variant?: "default" | "mobile-row";
 }
 
-function TokenCardComponent({ token, onClick }: TokenCardProps) {
+function TokenCardComponent({
+  token,
+  onClick,
+  variant = "default",
+}: TokenCardProps) {
   const tokens = useAppSelector((state) => state.tokens.tokens);
   // Use the selector data if available, otherwise fall back to prop
   const currentToken = useMemo(
@@ -87,10 +92,17 @@ function TokenCardComponent({ token, onClick }: TokenCardProps) {
       ? "border-primary-green"
       : "border-primary-red";
 
-  return (
-    <TooltipProvider delayDuration={150}>
-      <div
-        className={cn(
+  // Different styles for mobile list vs desktop card
+  const containerClasses =
+    variant === "mobile-row"
+      ? cn(
+          "flex flex-row gap-3",
+          "bg-transparent border-b border-stroke-primary", // No background, just separator
+          "cursor-pointer transition-colors duration-200",
+          "hover:bg-[#1c1e24]/50", // Subtle hover
+          "px-4 py-3" // Match tabs horizontal padding for table alignment
+        )
+      : cn(
           "flex flex-row gap-3",
           "bg-background-secondary",
           "outline outline-1 outline-stroke-primary",
@@ -98,9 +110,11 @@ function TokenCardComponent({ token, onClick }: TokenCardProps) {
           "hover:bg-[#1c1e24]",
           "hover:shadow-[0_4px_16px_rgba(0,0,0,0.25)]",
           "px-[12px] pt-[12px]"
-        )}
-        onClick={() => onClick?.(currentToken)}
-      >
+        );
+
+  return (
+    <TooltipProvider delayDuration={150}>
+      <div className={containerClasses} onClick={() => onClick?.(currentToken)}>
         {/* LEFT SEGMENT (Flex Grow) */}
         <div className="flex flex-1 min-w-0 gap-3">
           {/* Image Column */}
