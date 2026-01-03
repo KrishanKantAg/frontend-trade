@@ -82,8 +82,8 @@ function TokenCardComponent({ token, onClick }: TokenCardProps) {
       className={cn(
         "flex flex-row gap-3",
         "bg-background-secondary",
-        "border border-stroke-primary",
-        "cursor-pointer hover:border-primary-blue/50 transition-all duration-200",
+        "outline outline-1 outline-stroke-primary",
+        "cursor-pointer hover:outline-primary-blue/50 transition-all duration-200",
         "hover:bg-background-tertiary",
         "px-[12px] pt-[12px]"
       )}
@@ -248,9 +248,9 @@ function TokenCardComponent({ token, onClick }: TokenCardProps) {
       </div>
 
       {/* RIGHT SEGMENT (Fixed Width) */}
-      <div className="w-[120px] flex-shrink-0 flex flex-col justify-between items-end border-stroke-primary pl-2 py-0.5">
+      <div className="w-[120px] flex-shrink-0 flex flex-col items-start gap-1 border-stroke-primary pl-2 py-0.5">
         {/* MC */}
-        <div className="flex flex-col items-end">
+        <div className="flex flex-col items-start">
           <div className="text-xs">
             <span className="text-text-tertiary text-[12px] mr-1">MC</span>
             <AnimatedValue
@@ -262,7 +262,7 @@ function TokenCardComponent({ token, onClick }: TokenCardProps) {
         </div>
 
         {/* Volume */}
-        <div className="flex flex-col items-end">
+        <div className="flex flex-col items-start">
           <div className="text-xs">
             <span className="text-text-tertiary text-[12px] mr-1">V</span>
             <AnimatedValue
@@ -274,13 +274,10 @@ function TokenCardComponent({ token, onClick }: TokenCardProps) {
         </div>
 
         {/* Floor / TX */}
-        <div className="flex flex-col items-end w-full">
-          <div className="flex justify-end items-center gap-2 w-full">
+        <div className="flex flex-col items-start">
+          <div className="flex justify-start items-center gap-1">
             <div className="flex items-center gap-0.5">
-              <span
-                className="text-[12px] font-medium mr-1"
-                style={{ color: "rgb(252, 252, 252)" }}
-              >
+              <span className="text-text-tertiary text-[11px] font-medium mr-1">
                 F
               </span>
               <AnimatedValue
@@ -290,10 +287,7 @@ function TokenCardComponent({ token, onClick }: TokenCardProps) {
               />
             </div>
             <div className="flex items-center gap-0.5">
-              <span
-                className="text-[12px] font-medium mr-1"
-                style={{ color: "rgb(252, 252, 252)" }}
-              >
+              <span className="text-text-tertiary text-[11px] font-medium mr-1">
                 TX
               </span>
               <AnimatedValue
@@ -311,16 +305,6 @@ function TokenCardComponent({ token, onClick }: TokenCardProps) {
                 style={{ width: "100%", background: txGradient }}
               />
             </div>
-          </div>
-        </div>
-
-        {/* Action Buttons (from screenshot bottom right) */}
-        <div className="flex gap-1 mt-1 justify-end w-full">
-          <div className="w-4 h-4 rounded-full bg-background-tertiary border border-stroke-primary flex items-center justify-center">
-            <div className="w-2 h-2 rounded-full bg-primary-red"></div>
-          </div>
-          <div className="w-4 h-4 rounded-full bg-background-tertiary border border-stroke-primary flex items-center justify-center">
-            <div className="w-2 h-2 rounded-full bg-primary-yellow"></div>
           </div>
         </div>
       </div>

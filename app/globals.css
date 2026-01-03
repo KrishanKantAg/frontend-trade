@@ -43,45 +43,23 @@
   }
 }
 
-/* Custom scrollbar - Keeping for fallback but SimpleBar will override for main areas */
+/* Hide native scrollbars */
 ::-webkit-scrollbar {
-  width: 8px;
-  height: 8px;
-}
-
-::-webkit-scrollbar-track {
-  @apply bg-transparent;
-}
-
-::-webkit-scrollbar-thumb {
-  @apply bg-transparent border-2 border-transparent rounded-full;
-  background-clip: content-box;
-}
-
-/* Show scrollbar on hover */
-*:hover::-webkit-scrollbar-thumb {
-  @apply bg-stroke-secondary border-background;
-}
-
-::-webkit-scrollbar-thumb:hover {
-  @apply bg-text-tertiary;
+  width: 0;
+  height: 0;
 }
 
 /* Custom SimpleBar styles */
-.simplebar-scrollbar::before {
-  background-color: theme("colors.text.tertiary");
-  opacity: 0.5;
-  width: 4px;
-  border-radius: 4px;
+.simplebar-track.simplebar-vertical {
+  display: none !important;
 }
 
-.simplebar-track.simplebar-vertical {
-  width: 8px;
-  background-color: transparent;
+.simplebar-scrollbar::before {
+  opacity: 0 !important;
 }
 
 .simplebar-scrollbar.simplebar-visible::before {
-  opacity: 0.8;
+  opacity: 0 !important;
 }
 
 /* Smooth color transitions for price updates */
